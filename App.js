@@ -27,9 +27,9 @@ function Play() {
     useEffect(() => {
         if (winGame() !== "") {
             if (isCross){
-                Alert.alert("Congratulations Green");
+                Alert.alert("Congratulations Green", "You won the Game");
             }else {
-                Alert.alert("Congratulations Red");
+                Alert.alert("Congratulations Red", "You won the Game");
             }
         }
     }, [board]);
