@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import firebase from 'firebase';
-import {Alert} from "react-native";
+import {Alert, Text, Vibration, View} from "react-native";
 
+
+let myFirebase=null;
 
 const firebaseConfig = {
     apiKey: "AIzaSyDcHtecWCTn8Neegk0wXKtVD5MAr2qNM6Q",
@@ -12,15 +14,10 @@ const firebaseConfig = {
 };
 
 if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
+    myFirebase=firebase.initializeApp(firebaseConfig);
 } else {
     firebase.app();
 }
-
-const [games, setGames] = useState();
-const [green, setGreen] = useState();
-const [red, setRed] = useState();
-
 
 export function setGames() {
     let valGames = 0;
@@ -57,27 +54,18 @@ export function reset() {
     });
 }
 
+export function getFirebase(){
+    return myFirebase;
+}
+
 export function getGames() {
     firebase.database().ref('users/1').on('value', (snapshot) => {
         let games = snapshot.val().games;
-        console.log("games vorher: "+games)
-        games=1;
-        console.log("games: "+games)
+        console.log("games vorher: " + games)
+        games = 1;
+        setGamesStats(games)
+        console.log("games: " + games)
         return games;
-    });
-}
-export function getGreen() {
-    firebase.database().ref('users/1').on('value', (snapshot) => {
-        const green = snapshot.val().green;
-        console.log(green+"gre")
-        return green;
-    });
-}
-export function getRed () {
-    firebase.database().ref('users/1').on('value', (snapshot) => {
-        const red = snapshot.val().red;
-        console.log(red+"re")
-        return red;
     });
 }
 

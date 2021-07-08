@@ -2,7 +2,7 @@ import {Alert, Text, TouchableOpacity, View, Vibration} from "react-native";
 import {AntDesign, Entypo} from "@expo/vector-icons";
 import * as React from "react";
 import {useEffect, useState} from "react";
-import {reset, setGreen, setRed, setGames} from "../DB/firebase";
+import {reset, setGreen, setRed, setGames} from "../DB/firebaseService";
 import * as Haptics from 'expo-haptics';
 
 
@@ -49,7 +49,6 @@ export default function Play() {
     }
 
     const resetGame = () => {
-        reset();
         setIsCross(true);
         setDraw(0);
         setBoard(["question", "question", "question", "question", "question", "question", "question", "question", "question"]);
