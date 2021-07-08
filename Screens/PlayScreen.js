@@ -1,24 +1,39 @@
-import {Alert, Text, TouchableOpacity, View} from "react-native";
+import {Alert, Text, TouchableOpacity, View, Vibration} from "react-native";
 import {AntDesign, Entypo} from "@expo/vector-icons";
 import * as React from "react";
 import {useEffect, useState} from "react";
+import {reset, setGreen, setRed, setGames} from "../DB/firebase";
+import * as Haptics from 'expo-haptics';
+
 
 export default function Play() {
 
     const [board, setBoard] = useState(["question", "question", "question", "question", "question", "question", "question", "question", "question"]);
     const [isCross, setIsCross] = useState(true);
+    const [draw, setDraw] = useState(0);
+    const PATTERN = [1000, 1000, 2000]
 
     useEffect(() => {
+        if (draw===9){
+            setGames();
+        }
         if (winGame() !== "") {
+            Vibration.vibrate(PATTERN)
+            setGames();
             if (isCross) {
                 Alert.alert("Congratulations Green", "You won the Game!");
+                setGreen();
             } else {
                 Alert.alert("Congratulations Red", "You won the Game!");
+                setRed();
             }
+
         }
     }, [board]);
 
     function drawItem(number) {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+       setDraw(draw+1);
         if (board[number] === "question" && winGame() === "") {
             if (isCross) {
                 const some_array = [...board]
@@ -34,7 +49,9 @@ export default function Play() {
     }
 
     const resetGame = () => {
+        reset();
         setIsCross(true);
+        setDraw(0);
         setBoard(["question", "question", "question", "question", "question", "question", "question", "question", "question"]);
     }
 
