@@ -58,17 +58,6 @@ export function getFirebase(){
     return myFirebase;
 }
 
-export function getGames() {
-    firebase.database().ref('users/1').on('value', (snapshot) => {
-        let games = snapshot.val().games;
-        console.log("games vorher: " + games)
-        games = 1;
-        setGamesStats(games)
-        console.log("games: " + games)
-        return games;
-    });
-}
-
 export const remove = () => {
     firebase.database().ref('users/1').remove();
 }

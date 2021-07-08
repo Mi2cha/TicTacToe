@@ -27,22 +27,19 @@ export default function HomeScreen({navigation}) {
     useEffect(() => {
         getFirebase().database().ref('users/1').on('value', (snapshot) => {
             setGames(snapshot.val().games);
-            console.log("GAMES: " + games)
         });
         getFirebase().database().ref('users/1').on('value', (snapshot) => {
             setGreen(snapshot.val().green);
-            console.log("games: " + green);
         });
         getFirebase().database().ref('users/1').on('value', (snapshot) => {
             setRed(snapshot.val().red);
-            console.log("red: " + red);
         });
     }, []);
 
     const onShare = async () => {
         try {
             const result = await Share.share({
-                message: "I've played " + games + " games of Tic Tac Toe.\nGreen won " + green + " times and red did it " + red + " times.",
+                message: "I've played " + games + " games of Tic Tac Toe.\nfGreen won " + green + " times and red did it " + red + " times.",
             });
             if (result.action === Share.sharedAction) {
                 if (result.activityType) {
