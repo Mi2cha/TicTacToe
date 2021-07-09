@@ -39,7 +39,7 @@ export default function HomeScreen({navigation}) {
     const onShare = async () => {
         try {
             const result = await Share.share({
-                message: "I've played " + games + " games of Tic Tac Toe.\nfGreen won " + green + " times and red did it " + red + " times.",
+                message: "I've played " + games + " games of Tic Tac Toe.\nGreen won " + green + " times and red did it " + red + " times.",
             });
             if (result.action === Share.sharedAction) {
                 if (result.activityType) {
@@ -85,7 +85,7 @@ export default function HomeScreen({navigation}) {
                 </Center>
                 <View style={styles.bottomContainer}>
                     <IconButton
-                        top={"120%"}
+                        top={"117%"}
                         variant="unstyled"
                         icon={<Icon size="lg" as={<Entypo name="share"/>} color="#164e63"/>}
                         size="lg" mt="24px"
